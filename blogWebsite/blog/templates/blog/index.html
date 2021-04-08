@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All the Blogs</title>
+</head>
+<body>
+    {% if all_blogs %}
+        {% for blog in all_blogs %}
+            <div class="blog-holder">
+                <div class="blog-title">
+                    <h2> {{blog.blog_title}} </h2>
+                </div>
+                <div class="blog-author">
+                    <h3> {{blog.blog_author}} </h3>
+                </div>
+                <a href="/blog/{{blog.id}}/">Read More</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="error">no blogs found. please create some blogs</div>
+    {% endif %}
+
+</body>
+</html>
