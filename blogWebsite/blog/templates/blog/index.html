@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All the Blogs</title>
+    <title>All the Posts</title>
 </head>
 <body>
-    {% if all_blogs %}
-        {% for blog in all_blogs %}
-            <div class="blog-holder">
-                <div class="blog-title">
-                    <h2> {{blog.blog_title}} </h2>
+    {% if all_posts %}
+        {% for post in all_posts %}
+            <div class="post-holder">
+                <div class="post-title">
+                    <h2> {{post.post_title}} </h2>
                 </div>
-                <div class="blog-author">
-                    <h3> {{blog.blog_author}} </h3>
+                <div class="post-author">
+                    <h3> {{post.post_author}} </h3>
                 </div>
-                <a href="/blog/{{blog.id}}/">Read More</a>
+                <a href="{% url 'blog:detail' post.id %}">Read More</a>
             </div>
         {% endfor %}
     {% else %}
-        <div class="error">no blogs found. please create some blogs</div>
+        <div class="error">no posts found. please create some posts</div>
     {% endif %}
 
 </body>

@@ -1,18 +1,21 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 # Create your views here.
-from .models import Blog
+from .models import Post
 
 def index(request):
-    all_blogs = Blog.objects.order_by('pub_date')
+    all_posts = Post.objects.order_by('pub_date')
     context = {
-        'all_blogs':all_blogs,
+        'all_posts':all_posts,
     }
     return render(request,'blog/index.html',context)
 
-def detail(request, blog_id):
-    blog = get_object_or_404(Blog, id=blog_id)
+def detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
     context = {
-        'blog':blog,
+        'post':post,
     }
     return render(request,'blog/detail.html',context)
+
+def create(request):
+    return render(request,'blog/create.html')
