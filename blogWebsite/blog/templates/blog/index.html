@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,23 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All the Posts</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/index.css' %}">
 </head>
+<nav>
+    <link rel="stylesheet" href="{% static 'blog/header.css' %}">
+    <ul>
+        <li><a href="{% url 'blog:index' %}">Home</a></li>
+        <li><a href="{% url 'blog:create' %}">Add New Post</a></li>
+    </ul>
+</nav>
 <body>
-    {% if all_posts %}
-        {% for post in all_posts %}
-            <div class="post-holder">
-                <div class="post-title">
-                    <h2> {{post.post_title}} </h2>
+    <main>
+        {% if all_posts %}
+            {% for post in all_posts %}
+                <div class="post-holder">
+                    <div class="post-title">
+                        <h2> {{post.post_title}} </h2>
+                    </div>
+                    <div class="post-author">
+                        <h3>~By {{post.post_author}} </h3>
+                    </div>
+                    <a href="{% url 'blog:detail' post.id %}">Read More</a>
                 </div>
-                <div class="post-author">
-                    <h3> {{post.post_author}} </h3>
-                </div>
-                <a href="{% url 'blog:detail' post.id %}">Read More</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="error">no posts found. please create some posts</div>
-    {% endif %}
-
+            {% endfor %}
+        {% else %}
+            <div class="error">no posts found. please create some posts</div>
+        {% endif %}
+    </main>
 </body>
 </html>

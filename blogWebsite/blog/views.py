@@ -18,4 +18,10 @@ def detail(request, post_id):
     return render(request,'blog/detail.html',context)
 
 def create(request):
+    if(request.method=='POST'):
+        print(request.POST)
+        # newPost = Post.objects.update_or_create(request.POST['post_title'],request.POST['post_author'],request.POST['post_text'],request.POST['pub_date'])
+        newPost = Post(post_title=request.POST['post_title'], post_author=request.POST['post_author'],post_text= request.POST['post_text'],pub_date= request.POST['pub_date'])
+        # Post.objects.create(request.POST['post_title'], request.POST['post_author'], request.POST['post_text'], request.POST['pub_date'])
+        newPost.save()
     return render(request,'blog/create.html')

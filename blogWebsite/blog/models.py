@@ -5,7 +5,7 @@ from django.utils import timezone
 class Post(models.Model):
     post_title = models.CharField(max_length=100)
     post_author = models.CharField(max_length=60)
-    post_text = models.CharField(max_length=400)
+    post_text = models.CharField(max_length=800)
     pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.post_title

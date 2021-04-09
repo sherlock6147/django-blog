@@ -1,0 +1,24 @@
+nav{
+    width: 100%;
+    background-color: #4af;
+    padding: 15px 20vw;
+    color: rgb(232, 245, 252);
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+nav ul li{
+    flex: 1;
+    text-align: center;
+}
+nav ul li a{
+    color: rgb(231, 242, 248);
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}

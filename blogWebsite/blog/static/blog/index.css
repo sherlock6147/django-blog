@@ -1,0 +1,57 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+main{
+    padding: 15px 20vw;
+}
+/* Nav bar */
+nav{
+    width: 100%;
+    background-color: #4af;
+    padding: 15px 20vw;
+    color: rgb(232, 245, 252);
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+nav ul li{
+    flex: 1;
+    text-align: center;
+}
+nav ul li a{
+    color: rgb(231, 242, 248);
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+/* Post box */
+.post-holder{
+    background-color: rgb(231, 242, 248);
+    padding: 15px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    margin: 10px;
+}
+.post-title h2{
+    font-family: sans-serif;
+    color: rgb(9, 41, 68);
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+.post-author h3{
+    color: rgb(27, 46, 61);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.post-holder a{
+    text-decoration: none;
+    color: rgb(14, 36, 133);
+}
