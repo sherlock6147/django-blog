@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,23 +7,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add a New Post</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/create.css' %}">
 </head>
+<nav>
+    <link rel="stylesheet" href="{% static 'blog/header.css' %}">
+    <ul>
+        <li><a href="{% url 'blog:index' %}">Home</a></li>
+        <li><a href="{% url 'blog:create' %}">Add New Post</a></li>
+    </ul>
+</nav>
 <body>
-    <form action=""  enctype=“multipart/from-data” method="post">
-        {% csrf_token %}
-        <label for="title">Title for your post: </label>
-        <input type="text" name="post_title" id="title">
-        <br>
-        <label for="name">Author Name: </label>
-        <input type="text" name="post_author" id="name">
-        <br>
-        <label for="title">Publishing date for your post: </label>
-        <input type="date" name="pub_date" id="publishing_date">
-        <br>
-        <label for="content">Write your post :</label>
-        <input type="text" name="post_text" id="content">
-        <br>
-        <input type="submit" value="Post">
-    </form>
+    <main>
+        <form action=""  enctype=“multipart/from-data” method="post">
+            {% csrf_token %}
+            <label for="title">Title for your post: </label>
+            <input type="text" name="post_title" id="title">
+            <br>
+            <label for="name">Author Name: </label>
+            <input type="text" name="post_author" id="name">
+            <br>
+            <label for="title">Publishing date for your post: </label>
+            <input type="date" name="pub_date" id="publishing_date">
+            <br>
+            <label for="content" id="content-label">Write your post :</label><br>
+            <input type="text" name="post_text" id="content">
+            <br>
+            <div id="btn-holder">
+                <input type="submit" value="Post" id="submit-btn">
+            </div>
+        </form>
+    </main>
 </body>
 </html>
