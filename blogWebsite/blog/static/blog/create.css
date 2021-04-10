@@ -6,6 +6,7 @@
 main{
     padding: 15px 20vw;
 }
+
 form{
     background-color: rgb(231, 242, 248);
     padding: 15px;
@@ -37,11 +38,22 @@ label{
     color: rgb(231, 242, 248);
     font-weight: 600;
     padding: 10px 30px;
+    max-width: 200px;
+    flex: 0;
 }
 /* #content-label{
     width: 100%;
 } */
 #content{
+    margin: 0 auto;
     min-height: 20ch;
     width: 80%;
+}
+@media screen and (max-width: 574px){
+    main{
+        padding: 10px 5vw;
+    }
+    #content{
+        width: 95%;
+    }
 }

@@ -6,6 +6,11 @@
 main{
     padding: 15px 20vw;
 }
+@media screen and (max-width: 574px){
+    main{
+        padding: 10px 5vw;
+    }
+}
 .post-title{
     font-family: sans-serif;
     font-size: 1.8rem;

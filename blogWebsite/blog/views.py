@@ -2,9 +2,10 @@ from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse
 # Create your views here.
 from .models import Post
+from django.utils import timezone
 
 def index(request):
-    all_posts = Post.objects.order_by('pub_date')
+    all_posts = Post.objects.order_by('-pub_date').filter(pub_date__lte=timezone.now())
     context = {
         'all_posts':all_posts,
     }
