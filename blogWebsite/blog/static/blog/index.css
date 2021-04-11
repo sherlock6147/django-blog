@@ -53,8 +53,8 @@ nav ul li a{
 .post-author h3{
     color: rgb(27, 46, 61);
     font-size: 0.9rem;
-    margin-bottom: 20px;
     font-weight: 600;
+    margin: 10px 0px;
 }
 .post-holder a{
     text-decoration: none;
