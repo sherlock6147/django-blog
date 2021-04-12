@@ -4,11 +4,20 @@ from django.http import HttpResponse
 from .models import Post
 from django.utils import timezone
 import datetime
+from django.core.paginator import Paginator
 
 def index(request):
     all_posts = Post.objects.order_by('-pub_date').filter(pub_date__lte=timezone.now())
+    paginatorObject = Paginator(all_posts, 5)
+    pageNumber = request.GET.get('page')
+    try:
+        pageObj = paginatorObject.get_page(pageNumber)
+    except PageNotAnInteger:
+        pageObj = paginatorObject.get_page(1)
+    except EmptyPage:
+        pageObj = paginatorObject.get_page(paginatorObject.num_pages)
     context = {
-        'all_posts':all_posts,
+        'page_obj': pageObj,
     }
     return render(request,'blog/index.html',context)
 

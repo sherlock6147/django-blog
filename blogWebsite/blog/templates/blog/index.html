@@ -18,8 +18,8 @@
 </nav>
 <body>
     <main>
-        {% if all_posts %}
-            {% for post in all_posts %}
+        {% if page_obj.object_list %}
+            {% for post in page_obj.object_list %}
                 <div class="post-holder">
                     <div class="post-title">
                         <h2> {{post.post_title}} </h2>
@@ -35,5 +35,15 @@
             <div class="error">no posts found. please create some posts</div>
         {% endif %}
     </main>
+    <center>
+        {%if page_obj.has_previous %} {# whether the previous page exists #}
+            <a href="?page={{page_obj.previous_page_number}}" class="paginator-btn">Prev</a> {# link to the prev page #}
+        {% endif %}
+        <span id="current-page">{{page_obj.number}}</span> {# the current page number #}
+        
+        {%if page_obj.has_next %} {# whether the next page exists #}
+            <a href="?page={{page_obj.next_page_number}}" class="paginator-btn">Next</a> {# link to the next page #}
+        {% endif %}
+    </center>
 </body>
 </html>
