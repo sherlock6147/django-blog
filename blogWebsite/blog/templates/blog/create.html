@@ -9,13 +9,7 @@
     <title>Add a New Post</title>
     <link rel="stylesheet" type="text/css" href="{% static 'blog/create.css' %}">
 </head>
-<nav>
-    <link rel="stylesheet" href="{% static 'blog/header.css' %}">
-    <ul>
-        <li><a href="{% url 'blog:index' %}">Home</a></li>
-        <li><a href="{% url 'blog:create' %}">Add New Post</a></li>
-    </ul>
-</nav>
+{% include 'blog/snippets/header.html'%}
 <body>
     <main>
         <form action=""  enctype=“multipart/from-data” method="post">
@@ -38,4 +32,5 @@
         </form>
     </main>
 </body>
+{% include 'blog/snippets/footer.html' %}
 </html>

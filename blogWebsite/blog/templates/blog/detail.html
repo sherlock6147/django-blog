@@ -8,13 +8,7 @@
     <title>{{post.post_title}} | Post {{post.id}}</title>
     <link rel="stylesheet" type="text/css" href="{% static 'blog/detail.css' %}">
 </head>
-<nav>
-    <link rel="stylesheet" href="{% static 'blog/header.css' %}">
-    <ul>
-        <li><a href="{% url 'blog:index' %}">Home</a></li>
-        <li><a href="{% url 'blog:create' %}">Add New Post</a></li>
-    </ul>
-</nav>
+{% include 'blog/snippets/header.html'%}
 <body>
     <main>
         <div class="post-title">{{post.post_title}}</div>
@@ -23,4 +17,5 @@
         <div class="post_text">{{post.post_text}}</div>
     </main>
 </body>
+{% include 'blog/snippets/footer.html' %}
 </html>
