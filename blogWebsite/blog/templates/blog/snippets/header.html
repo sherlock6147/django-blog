@@ -4,5 +4,11 @@
     <ul>
         <li><a href="{% url 'blog:index' %}">Home</a></li>
         <li><a href="{% url 'blog:create' %}">Add New Post</a></li>
+        {% if request.user.is_authenticated == False%}
+            <li><a href="{% url 'blog:signup' %}">Signup</a></li>
+            <li><a href="{% url 'blog:login' %}">Login</a></li>
+        {% else %}
+            <li><a href="{% url 'blog:logout' %}">Logout</a></li>
+        {% endif %}
     </ul>
 </nav>

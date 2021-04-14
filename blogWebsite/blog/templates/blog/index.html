@@ -12,6 +12,9 @@
 {% include 'blog/snippets/header.html'%}
 <body>
     <main>
+        {% for message in messages %}
+            <center><p class="messages">{{message}}</p></center>
+        {% endfor %}
         {% if page_obj.object_list %}
             {% for post in page_obj.object_list %}
                 <div class="post-holder">
