@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from django import forms
+from .models import Comment
 from django.contrib.auth.models import User
 
 class UserSignupForm(ModelForm):
@@ -11,3 +12,5 @@ class UserLoginForm(forms.Form):
     username = forms.CharField(max_length=150,label='Username')
     password = forms.CharField(max_length=150,label='Password',widget=forms.widgets.PasswordInput)
     
+class AddComment(forms.Form):
+    comment_text = forms.CharField(max_length=350,label='Add Comment')

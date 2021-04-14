@@ -3,6 +3,10 @@ nav{
     background-color: #4af;
     padding: 15px 10vw;
     color: rgb(232, 245, 252);
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
 }
 nav ul{
     display: flex;

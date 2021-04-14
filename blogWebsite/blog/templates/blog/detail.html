@@ -15,6 +15,32 @@
         <div class="post-author">{{post.post_author}}</div>
         <div class="date-published">{{post.pub_date}}</div>
         <div class="post_text">{{post.post_text}}</div>
+        <section class="comments">
+            {% if post.post_author != request.user.username %}
+                {% if request.user.is_authenticated %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <label for="comment_text">Add Comment</label>
+                        <div class="holder">
+                            {{form.comment_text}}
+                            <input type="submit" value="Comment" id="submit-btn">
+                        </div>
+                    </form>
+                {% endif %}
+            {% endif %}
+            <div class="viewcomments">
+                {% for comment in all_comments %}
+                    <div class="comment-holder">
+                        <div class="comment-text">
+                            <p> {{comment.comment_text}} </p>
+                        </div>
+                        <div class="comment-user">
+                            <h3>By {{comment.comment_user}}</h3>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
     </main>
 </body>
 {% include 'blog/snippets/footer.html' %}

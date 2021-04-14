@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 # Create your views here.
-from .forms import UserSignupForm,UserLoginForm
-from .models import Post
+from .forms import UserSignupForm,UserLoginForm,AddComment
+from .models import Post,Comment
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator
@@ -28,17 +28,48 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    context = {
-        'post':post,
-    }
-    return render(request,'blog/detail.html',context)
+    all_comments = Comment.objects.filter(post=post)
+    if (request.method == 'POST'):
+        form = AddComment(request.POST)
+        if form.is_valid():
+            comment = Comment()
+            comment.post = post
+            comment.comment_user = request.user.username
+            comment.comment_text = request.POST.get('comment_text')
+            print(comment.comment_user)
+            comment.save()
+            context = {
+                'post': post,
+                'form': form,
+                'all_comments' : all_comments,
+            }
+            print("context")
+            return render(request, 'blog/detail.html', context)
+        else:
+            form = AddComment()
+            context = {
+                'post': post,
+                'form': form,
+                'all_comments' : all_comments,
+            }
+            print("else 1")
+            return render(request,'blog/detail.html',context)
+    else:
+        form = AddComment()
+        context = {
+            'post': post,
+            'form': form,
+            'all_comments' : all_comments,
+        }
+        print("else 2")
+        return render(request,'blog/detail.html',context)
 
 def create(request):
     if(request.method=='POST'):
         time = timezone.now()
         date = request.POST['pub_date'].split('-')
         publishing_time = datetime.datetime(int(date[0]),int(date[1]),int(date[2]),time.hour,time.minute,time.second)
-        newPost = Post(post_title=request.POST['post_title'], post_author=request.POST['post_author'],post_text= request.POST['post_text'],pub_date= publishing_time)
+        newPost = Post(post_title=request.POST['post_title'], post_author=request.user.username,post_text= request.POST['post_text'],pub_date= publishing_time)
         print(newPost.pub_date)
         newPost.save()
     return render(request,'blog/create.html')

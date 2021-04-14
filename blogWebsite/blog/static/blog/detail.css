@@ -34,3 +34,57 @@ main{
         width: 95%;
     }
 }
+form {
+    margin: 20px 0px;
+    display: flex;
+    font-family: sans-serif;
+    flex-direction: column;
+}
+
+form label{
+    font-size: 1rem;
+    font-weight: 800;
+    margin: auto;
+}
+form .holder{
+    display: flex;
+    margin-top: 10px;
+    flex-direction: row;
+}
+.holder input{
+    flex: 1;
+    border: none;
+    padding: 5px;
+    font-size: 1rem;
+    border-radius: 10px 0px 0px 10px;
+    background-color: rgb(231, 242, 248);
+}
+#submit-btn{
+    flex: 0;
+    margin: auto;
+    border: none;
+    background-color: #4af;
+    color: rgb(231, 242, 248);
+    font-weight: 600;
+    padding: 10px 20px;
+    max-width: 200px;
+    flex: 0;
+    font-size: 1rem;
+    border-radius: 0 10px 10px 0;
+}
+.comment-holder{
+    background-color: rgb(231, 242, 248);
+    display: flex;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    font-family: sans-serif;
+    flex-direction: column;
+}
+.comment-text p{
+    font-size: 1rem;
+}
+.comment-user h3{
+    font-weight: 600;
+    font-size: 0.8rem;
+}

@@ -9,3 +9,10 @@ class Post(models.Model):
     pub_date = models.DateTimeField('date published')
     def __str__(self):
         return self.post_title
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    comment_user = models.CharField(max_length=150)
+    comment_text = models.CharField(max_length=350)
+    def __str__(self):
+        return self.comment_text
