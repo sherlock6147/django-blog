@@ -60,7 +60,6 @@ def signup(request):
             form = UserSignupForm()
             context = {
             'form': form,
-            # 'is_authenticated': request.user.is_authenticated,
             }
             return render(request, 'blog/signup.html', context)
     else:
@@ -68,7 +67,6 @@ def signup(request):
         form = UserSignupForm()
         context = {
             'form': form,
-            # 'is_authenticated': request.user.is_authenticated,
         }
         print('GET')
         print(context)
@@ -88,14 +86,12 @@ def loginPage(request):
             form = UserLoginForm()
             context = {
                 'form': form,
-                # 'is_authenticated': request.user.is_authenticated,
             }
             return render(request, 'blog/login.html', context)
     else:
         form = UserLoginForm()
         context = {
             'form': form,
-            # 'is_authenticated': request.user.is_authenticated,
         }
         return render(request, 'blog/login.html', context)
 
