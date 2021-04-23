@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 # Create your views here.
 from .forms import UserSignupForm,UserLoginForm,AddComment
-from .models import Post,Comment
+from .models import Post,Comment,Like
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator
@@ -29,40 +29,61 @@ def index(request):
 def detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     all_comments = Comment.objects.filter(post=post)
+    all_likes = Like.objects.filter(post=post)
     if (request.method == 'POST'):
-        form = AddComment(request.POST)
-        if form.is_valid():
-            comment = Comment()
-            comment.post = post
-            comment.comment_user = request.user.username
-            comment.comment_text = request.POST.get('comment_text')
-            print(comment.comment_user)
-            comment.save()
-            context = {
-                'post': post,
-                'form': form,
-                'all_comments' : all_comments,
-            }
-            print("context")
-            return render(request, 'blog/detail.html', context)
+        if 'comment' in request.POST:
+            form = AddComment(request.POST)
+            if form.is_valid():
+                comment = Comment()
+                comment.post = post
+                comment.comment_user = request.user.username
+                comment.comment_text = request.POST.get('comment_text')
+                print(comment.comment_user)
+                comment.save()
+            else:
+                form = AddComment()
+                context = {
+                    'post': post,
+                    'form': form,
+                    'all_comments' : all_comments,
+                }
+                print("else 1")
+                return render(request,'blog/detail.html',context)
+        elif 'like' in request.POST:
+            form = AddComment()
+            like = Like.objects.filter(post=post,liked_by_user=request.user.username)
+            # print(like.count())
+            if(like.count()==0):
+                newLike = Like()
+                newLike.post = post
+                newLike.liked_by_user = request.user.username
+                print('liked')
+                newLike.save()
+                post.likes = post.likes + 1
+                post.save()
+            else:
+                print('already liked')
+        elif 'dislike' in request.POST:
+            form = AddComment()
+            try:
+                like = Like.objects.filter(post=post,liked_by_user=request.user.username)
+                print('disliked')
+                like.delete()
+                post.likes = post.likes - 1
+                post.save()
+            except:
+                print("like not found for deleteion")
         else:
             form = AddComment()
-            context = {
-                'post': post,
-                'form': form,
-                'all_comments' : all_comments,
-            }
-            print("else 1")
-            return render(request,'blog/detail.html',context)
     else:
         form = AddComment()
-        context = {
-            'post': post,
-            'form': form,
-            'all_comments' : all_comments,
-        }
-        print("else 2")
-        return render(request,'blog/detail.html',context)
+    context = {
+        'post': post,
+        'form': form,
+        'all_comments' : all_comments,
+        'numberOfLikes' : all_likes.count(),
+    }
+    return render(request,'blog/detail.html',context)
 
 def create(request):
     if(request.method=='POST'):

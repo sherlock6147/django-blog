@@ -14,6 +14,19 @@
         <div class="post-title">{{post.post_title}}</div>
         <div class="post-author">{{post.post_author}}</div>
         <div class="date-published">{{post.pub_date}}</div>
+        <!-- Likes Section -->
+        <section class="view-likes">
+            {{numberOfLikes}} Likes
+        </section>
+        {% if post.post_author != request.user.username %}
+            {% if request.user.is_authenticated %}
+                <form action="" method="post" id="liking-form">
+                    {% csrf_token %}
+                    <input type="submit" value="👍" name="like">
+                    <input type="submit" value="👎" name="dislike">
+                </form>
+            {% endif %}
+        {% endif %}
         <div class="post_text">{{post.post_text}}</div>
         <section class="comments">
             {% if post.post_author != request.user.username %}
@@ -23,7 +36,7 @@
                         <label for="comment_text">Add Comment</label>
                         <div class="holder">
                             {{form.comment_text}}
-                            <input type="submit" value="Comment" id="submit-btn">
+                            <input type="submit" value="Comment" name = "comment" id="submit-btn">
                         </div>
                     </form>
                 {% endif %}

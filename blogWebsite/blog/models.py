@@ -7,6 +7,7 @@ class Post(models.Model):
     post_author = models.CharField(max_length=60)
     post_text = models.CharField(max_length=800)
     pub_date = models.DateTimeField('date published')
+    likes = models.PositiveIntegerField("Number Of Likes",default=0)
     def __str__(self):
         return self.post_title
 
@@ -16,3 +17,9 @@ class Comment(models.Model):
     comment_text = models.CharField(max_length=350)
     def __str__(self):
         return self.comment_text
+
+class Like(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    liked_by_user = models.CharField(max_length=150)
+    def __str__(self):
+        return 'By '+ self.liked_by_user
