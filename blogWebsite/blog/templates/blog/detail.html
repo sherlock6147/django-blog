@@ -29,17 +29,15 @@
         {% endif %}
         <div class="post_text">{{post.post_text}}</div>
         <section class="comments">
-            {% if post.post_author != request.user.username %}
-                {% if request.user.is_authenticated %}
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <label for="comment_text">Add Comment</label>
-                        <div class="holder">
-                            {{form.comment_text}}
-                            <input type="submit" value="Comment" name = "comment" id="submit-btn">
-                        </div>
-                    </form>
-                {% endif %}
+            {% if request.user.is_authenticated %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <label for="comment_text">Add Comment</label>
+                    <div class="holder">
+                        {{form.comment_text}}
+                        <input type="submit" value="Comment" name = "comment" id="submit-btn">
+                    </div>
+                </form>
             {% endif %}
             <div class="viewcomments">
                 {% for comment in all_comments %}
