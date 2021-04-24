@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 main{
     padding: 15px 20vw;
@@ -87,4 +88,19 @@ form .holder{
 .comment-user h3{
     font-weight: 600;
     font-size: 0.8rem;
+}
+#liking-form{
+    display : flex;
+    flex-direction: row;
+}
+#liking-form input{
+    width: fit-content;
+    border: none;
+    font-size: 1.2rem;
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+}
+.view-likes{
+    margin-bottom: 15px;
 }

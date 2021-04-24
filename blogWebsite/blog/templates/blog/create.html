@@ -12,21 +12,26 @@
 {% include 'blog/snippets/header.html'%}
 <body>
     <main>
-        <form action=""  enctype=“multipart/from-data” method="post">
-            {% csrf_token %}
-            <label for="title">Title for your post: </label>
-            <input type="text" name="post_title" id="title">
-            <br>
-            <label for="title">Publishing date for your post: </label>
-            <input type="date" name="pub_date" id="publishing_date">
-            <br>
-            <label for="content" id="content-label">Write your post :</label><br>
-            <textarea name="post_text" id="content" cols="40" rows="10"></textarea>
-            <br>
-            <div id="btn-holder">
-                <input type="submit" value="Post" id="submit-btn">
-            </div>
-        </form>
+        <!-- <small>{{request.user.username}}</small> -->
+        {% if request.user.is_authenticated != False%}
+            <form action=""  enctype=“multipart/from-data” method="post">
+                {% csrf_token %}
+                <label for="title">Title for your post: </label>
+                <input type="text" name="post_title" id="title">
+                <br>
+                <label for="title">Publishing date for your post: </label>
+                <input type="date" name="pub_date" id="publishing_date">
+                <br>
+                <label for="content" id="content-label">Write your post :</label><br>
+                <textarea name="post_text" id="content" cols="40" rows="10"></textarea>
+                <br>
+                <div id="btn-holder">
+                    <input type="submit" value="Post" id="submit-btn">
+                </div>
+            </form>
+        {% else %}
+            <h2>Please Login or Signup for Adding Blog</h2>
+        {% endif %}
     </main>
 </body>
 {% include 'blog/snippets/footer.html' %}

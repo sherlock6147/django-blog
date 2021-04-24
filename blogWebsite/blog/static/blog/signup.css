@@ -38,3 +38,10 @@ input{
     max-width: 200px;
     flex: 0;
 }
+strong{
+    font-size: 0.7rem;
+    color: red;
+}
+.alert{
+    text-align: center;
+}

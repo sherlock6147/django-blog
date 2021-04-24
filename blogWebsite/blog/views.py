@@ -100,16 +100,25 @@ def signup(request):
         form = UserSignupForm(request.POST)
         print(request.user)
         if form.is_valid():
+            print('form is valid')
             try:
+                # User Created Successfully
                 user = form.save()
                 username = form.cleaned_data.get('username')
                 print(user)
                 messages.success(request,'Account was created for '+username)
+                login(request, user=user)
                 return HttpResponseRedirect('/blog/')
             except:
-                return HttpResponse("404 an error occured")         
+                form = UserSignupForm()
+                context = {
+                'form': form,
+                }
+                return render(request, 'blog/signup.html', context)       
         else:
-            form = UserSignupForm()
+            # Invalid Form
+            print('form is invalid')
+            # form = UserSignupForm()
             context = {
             'form': form,
             }
