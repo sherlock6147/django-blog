@@ -5,8 +5,9 @@ from django.utils import timezone
 class Post(models.Model):
     post_title = models.CharField(max_length=100)
     post_author = models.CharField(max_length=60)
-    post_text = models.CharField(max_length=800)
+    post_text = models.CharField(max_length=2000)
     pub_date = models.DateTimeField('date published')
+    post_image = models.ImageField('image',upload_to='images/',null=True,blank=True)
     likes = models.PositiveIntegerField("Number Of Likes",default=0)
     def __str__(self):
         return self.post_title

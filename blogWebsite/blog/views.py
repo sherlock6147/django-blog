@@ -98,6 +98,8 @@ def create(request):
         publishing_time = datetime.datetime(int(date[0]),int(date[1]),int(date[2]),time.hour,time.minute,time.second)
         newPost = Post(post_title=request.POST['post_title'], post_author=request.user.username,post_text= request.POST['post_text'],pub_date= publishing_time)
         print(newPost.pub_date)
+        if(request.POST['post_image'] is not None):
+            newPost.post_image = request.POST['post_image']
         newPost.save()
     return render(request,'blog/create.html')
 

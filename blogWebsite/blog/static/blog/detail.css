@@ -104,3 +104,23 @@ form .holder{
 .view-likes{
     margin-bottom: 15px;
 }
+.img-container{
+    overflow: none;
+    margin: 15px auto;
+    justify-content: center;
+    display: flex;
+    max-width: fit-content;
+    justify-content: center;
+    flex-direction: column;
+}
+.img-container img{
+    max-width: 500px;
+    height: fit-content;
+    border-radius: 10px;
+}
+@media screen and (max-width:574px){
+    .img-container img{
+        max-width: 350px;
+        height: fit-content;
+    }            
+}
