@@ -65,7 +65,7 @@ nav ul li a{
     font-size: 1.2rem;
     color: rgb(232, 245, 252);
     background-color:#4af;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border-radius: 10px;
     text-decoration: none;
     margin: 0px 10px;
@@ -80,4 +80,23 @@ center{
 #current-page{
     font-size: 1.5rem;
     font-family: sans-serif;
+}
+
+.page-number{
+    margin: 0px 10px ;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: rgb(72, 87, 114);
+}
+.active{
+    font-size: 1.5rem;
+    color: rgb(4, 35, 83);
+    font-family: sans-serif;
+    text-decoration: none;
+
+}
+.disable{
+    background-color: rgb(211, 232, 248);
+    color: black;
 }

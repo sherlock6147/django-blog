@@ -33,14 +33,40 @@
             <div class="error">no posts found. please create some posts</div>
         {% endif %}
     </main>
+    <!-- Final Pagination -->
     <center>
         {%if page_obj.has_previous %} {# whether the previous page exists #}
             <a href="?page={{page_obj.previous_page_number}}" class="paginator-btn"><</a> {# link to the prev page #}
+        {% else %}
+            <a href="#" class="paginator-btn disable"><</a> {# link to the prev page #}
         {% endif %}
-        <span id="current-page">{{page_obj.number}}</span> {# the current page number #}
-        
+        {% if page_obj.number == 1 %}
+            <a href="?page=1" class="page-number active">1</a>
+        {% else %}
+            <a href="?page=1" class="page-number">1</a>
+        {% endif %}
+        {% if page_obj.number == 2 %}
+            <a href="?page=2" class="page-number active">2</a>
+        {% else %}
+            <a href="?page=2" class="page-number">2</a>
+        {% endif %}
+        {% if page_obj.number != 1 and page_obj.number != 2 and page_obj.number != before_last_page and page_obj.number != last_page %}
+            <span id="current-page">..{{page_obj.number}}..</span> {# the current page number #}
+        {% endif %}
+        {% if page_obj.number == before_last_page %}
+            <a href="?page={{before_last_page}}" class="page-number active">{{before_last_page}}</a>
+        {% else %}
+            <a href="?page={{before_last_page}}" class="page-number">{{before_last_page}}</a>
+        {% endif %}
+        {% if page_obj.number == last_page %}
+            <a href="?page={{last_page}}" class="page-number active">{{last_page}}</a>
+        {% else %}
+            <a href="?page={{last_page}}" class="page-number">{{last_page}}</a>
+        {% endif %}   
         {%if page_obj.has_next %} {# whether the next page exists #}
             <a href="?page={{page_obj.next_page_number}}" class="paginator-btn">></a> {# link to the next page #}
+        {% else %}
+            <a href="#" class="paginator-btn disable"><</a> {# link to the prev page #}
         {% endif %}
     </center>
 </body>

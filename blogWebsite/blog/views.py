@@ -3,6 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+import math
 # Create your views here.
 from .forms import UserSignupForm,UserLoginForm,AddComment
 from .models import Post,Comment,Like
@@ -12,7 +13,10 @@ from django.core.paginator import Paginator
 
 def index(request):
     all_posts = Post.objects.order_by('-pub_date').filter(pub_date__lte=timezone.now())
-    paginatorObject = Paginator(all_posts, 5)
+    postPerPage = 5
+    postCount = all_posts.count()
+    last_page = math.ceil(postCount/postPerPage) 
+    paginatorObject = Paginator(all_posts, postPerPage)
     pageNumber = request.GET.get('page')
     try:
         pageObj = paginatorObject.get_page(pageNumber)
@@ -22,6 +26,8 @@ def index(request):
         pageObj = paginatorObject.get_page(paginatorObject.num_pages)
     context = {
         'page_obj': pageObj,
+        'last_page' : last_page,
+        'before_last_page' : last_page-1,
     }
     print(request.user)
     return render(request,'blog/index.html',context)
