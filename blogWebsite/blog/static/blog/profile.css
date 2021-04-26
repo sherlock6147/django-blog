@@ -1,0 +1,131 @@
+*{
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+main{
+    padding: 15px 20vw;
+}
+@media screen and (max-width: 574px){
+    main{
+        padding: 10px 5vw;
+    }
+}
+/* Nav bar */
+nav{
+    width: 100%;
+    background-color: #4af;
+    padding: 15px 20vw;
+    color: rgb(232, 245, 252);
+}
+nav ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+nav ul li{
+    flex: 1;
+    text-align: center;
+}
+nav ul li a{
+    color: rgb(231, 242, 248);
+    text-decoration: none;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+#welcome,#login-again{
+    text-align: center;
+    font-size: 1.6rem;
+}
+.user-card{
+    background-color: rgb(220, 228, 240);
+    padding: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.text{
+    flex: 1;
+}
+.profile-container{
+    flex: 1;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.profile-container img{
+    flex: 1;
+    max-width: 350px;
+    min-width: 250px;
+    border-radius: 10px;
+}
+#username{
+    color: rgb(76, 76, 80);
+    font-size: 1.2rem;
+}
+.profile-container form{
+    font-size: 1rem;
+    display: flex;
+}
+.profile-container form input{
+    font-size: 1rem;
+    flex: 1;
+}
+.profile-container form label{
+    margin: auto;
+    text-align: center;
+    flex: 1;
+}
+#submitbtn{
+    max-width: 100px;
+    border: none;
+    font-weight: 600;
+    border-radius: 5px;
+    color: rgb(210, 224, 250);
+    padding: 5px 10px;
+    background-color: #4af;
+}
+.posts{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+/* Post box */
+.post-holder{
+    flex: 1;
+    min-width: 300px;
+    background-color: rgb(231, 242, 248);
+    padding: 15px;
+    border-radius: 10px;
+    font-family: sans-serif;
+    margin: 10px;
+    flex: 1;
+}
+.post-title h2{
+    font-family: sans-serif;
+    color: rgb(9, 41, 68);
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+.post-author h3{
+    color: rgb(27, 46, 61);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 10px 0px;
+}
+.post-holder a{
+    text-decoration: none;
+    color: rgb(14, 36, 133);
+}

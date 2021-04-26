@@ -8,6 +8,7 @@
             <li><a href="{% url 'blog:signup' %}">Signup</a></li>
             <li><a href="{% url 'blog:login' %}">Login</a></li>
         {% else %}
+            <li><a href="{% url 'blog:profile' %}">Profile</a></li>
             <li><a href="{% url 'blog:logout' %}">Logout</a></li>
         {% endif %}
     </ul>

@@ -5,8 +5,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 import math
 # Create your views here.
-from .forms import UserSignupForm,UserLoginForm,AddComment
-from .models import Post,Comment,Like
+from .forms import UserSignupForm,UserLoginForm,AddComment,AddProfilePhotoForm
+from .models import Post,Comment,Like,ProfilePhoto
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator
@@ -169,3 +169,49 @@ def logoutUser(request):
     logout(request)
     messages.info(request,"Logged out "+username)
     return HttpResponseRedirect('/blog/login/')
+
+def profile(request):
+    has_profile_photo=False
+    if request.user.is_authenticated:
+        user = User.objects.get(username=request.user.username)
+        user_obj=user
+        print(ProfilePhoto.objects.filter(username=user.username).count())
+        form = AddProfilePhotoForm()
+        if ProfilePhoto.objects.filter(username=user.username).count()<1:
+            print("loop 1")
+            if request.method=='POST':
+                print("loop 2")
+                form = AddProfilePhotoForm(request.POST,request.FILES)
+                print(request.FILES)
+                if form.is_valid():
+                    inst = form.save(commit=False)
+                    print("loop 6")
+                    inst.username = user.username
+                    inst.save()
+                    has_profile_photo=True
+                else:
+                    print("loop 7")
+                    form = AddProfilePhotoForm()
+                profile_photo=ProfilePhoto.objects.filter(username=user.username).first()
+                print(profile_photo)
+            else:
+                form = AddProfilePhotoForm()
+                print("loop 3")
+                profile_photo=None
+        else:
+            print("loop 4")
+            profile_photo=ProfilePhoto.objects.filter(username=user.username).first()
+            has_profile_photo=True
+        users_post = Post.objects.order_by('-pub_date').filter(post_author=user.username)
+    else:
+        print("loop 5")
+        user_obj='AnonymousUser'
+        users_post = None
+    context = {
+        'user_obj' : user_obj,
+        'has_profile_photo': has_profile_photo,
+        'profile_photo': profile_photo,
+        'form':form,
+        'users_posts':users_post,
+    }    
+    return render(request,template_name='blog/profile.html',context=context)

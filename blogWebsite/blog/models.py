@@ -1,6 +1,7 @@
 from django.db import models
 import datetime
 from django.utils import timezone
+from django.contrib.auth.models import User
 # Create your models here.
 class Post(models.Model):
     post_title = models.CharField(max_length=100)
@@ -24,3 +25,9 @@ class Like(models.Model):
     liked_by_user = models.CharField(max_length=150)
     def __str__(self):
         return 'By '+ self.liked_by_user
+
+class ProfilePhoto(models.Model):
+    username = models.CharField("username",max_length=150,default="AnonymousUser")
+    profile_image = models.ImageField('image',upload_to='user_images/',null=True,blank=True)
+    def __str__(self):
+        return 'By '+ self.username

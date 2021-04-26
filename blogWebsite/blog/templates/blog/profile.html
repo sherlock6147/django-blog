@@ -1,0 +1,67 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{request.user.username}}'s profile</title>
+    <link rel="stylesheet" href="{% static 'blog/profile.css' %}">
+</head>
+{% include 'blog/snippets/header.html' %}
+<body>
+    <main>
+        {% if request.user.is_authenticated %}
+            <div class="user-card">
+                <div class="text">
+                    <h2 id="welcome">Hello {{user_obj.first_name}} {{user_obj.last_name}}</h2>
+                    <h2 id="username">Username {{user_obj.username}}</h2>
+                </div>
+                {% if profile_photo.profile_image.url is not None %}
+                    <!-- show profile photo -->
+                    <div class="profile-container">
+                        <img src="{{profile_photo.profile_image.url}}" alt="profile photo">
+                    </div>
+                {% else %}
+                    <!-- show form -->
+                    <div class="profile-container">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- <label for="id_image">Image for your Profile:</label>
+                            <input type="file" name="profile_image" accept="image/*" id="id_image">
+                            <br> -->
+                            {{form}}
+                            <input type="submit" value="Add" name='add_profile_photo' id="submitbtn">
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- show posts by user -->
+            {% if users_posts != None %}
+                <h2 style="text-align: center;margin: 15px 0px;">Posts made by you</h2>
+                <section class="posts">
+                {% for post in users_posts %}
+                    <div class="post-holder">
+                        <div class="post-title">
+                            <h2> {{post.post_title}} </h2>
+                        </div>
+                        <div class="post-author">
+                            <h3 style="font-weight: 400;">{{post.pub_date}}</h3>
+                            <h3>~By {{post.post_author}} </h3>
+                            <h3>{{post.likes}} Likes</h3>
+                        </div>
+                        <a href="{% url 'blog:detail' post.id %}">Read More</a>
+                    </div>
+                {% endfor %}
+                </section>
+            {% else %}
+                <h2>Post something</h2>
+            {% endif %}
+        {% else %}
+            <h2 id="login-again">Please login</h2>
+        {% endif %}
+    </main>
+</body>
+{% include 'blog/snippets/footer.html' %}
+</html>
