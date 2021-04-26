@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{post.post_title}} | Post {{post.id}}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/delete.css' %}">
+</head>
+{% include 'blog/snippets/header.html'%}
+<body>
+    <main>
+        {% if request.user.is_authenticated %}
+            {% if request.user.username == post.post_author%}
+            <center><h2>Do you really want to delete the post?</h2></center>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Confirm Deletion" id="confirm" name="confirm">
+                    <input type="submit" value="Cancel" id="cancel" name="cancel">
+                </form>
+            {% else %}
+                <h2>You aren't the author for this post</h2>
+            {% endif %}
+        {% else %}
+            <h2>Please login</h2>
+        {% endif %}
+    </main>
+</body>
+{% include 'blog/snippets/footer.html' %}
+</html>

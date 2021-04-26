@@ -6,6 +6,7 @@ from django.contrib import messages
 import math
 # Create your views here.
 from .forms import UserSignupForm,UserLoginForm,AddComment,AddProfilePhotoForm
+from django.forms import ImageField
 from .models import Post,Comment,Like,ProfilePhoto
 from django.utils import timezone
 import datetime
@@ -215,3 +216,32 @@ def profile(request):
         'users_posts':users_post,
     }    
     return render(request,template_name='blog/profile.html',context=context)
+
+def editPost(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    if request.method == 'POST':
+        time = timezone.now()
+        date = request.POST['pub_date'].split('-')
+        publishing_time = datetime.datetime(int(date[0]),int(date[1]),int(date[2]),time.hour,time.minute,time.second)
+        newPost = Post(post_title=request.POST['post_title'], post_author=request.user.username,post_text= request.POST['post_text'],pub_date= publishing_time)
+        print(newPost.pub_date)
+        if(request.POST['post_image'] is not None):
+            newPost.post_image = request.POST['post_image']
+        post = newPost
+        post.save()
+        return HttpResponseRedirect('/blog/'+str(post_id))
+    context = {'post':post,}
+    return render(request,'blog/edit.html',context)
+
+def deletePost(request,post_id):
+    post = get_object_or_404(Post,id=post_id)
+    if request.method == 'POST' and request.user.username == post.post_author:
+        if 'confirm' in request.POST:
+            # delete post
+            post.delete()
+            return HttpResponseRedirect('/blog/')
+        if 'cancel' in request.POST:
+            #redirect to post
+            return HttpResponseRedirect('/blog/'+str(post_id))
+    context = {'post':post,}
+    return render(request,'blog/delete.html',context)

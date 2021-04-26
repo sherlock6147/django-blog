@@ -124,3 +124,25 @@ form .holder{
         height: fit-content;
     }            
 }
+#editordelete{
+    display: flex;
+    margin-bottom: 15px;
+    list-style: none;
+    justify-content: flex-end;
+    flex-direction: row;
+}
+#editordelete li{
+    flex: 1;
+    max-width: 100px;
+    text-align: center;
+    color: cornflowerblue;
+}
+#editordelete li a{
+    text-decoration: none;
+    background-color: #4af;
+    color: azure;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 10px;
+}

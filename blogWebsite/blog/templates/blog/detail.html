@@ -18,6 +18,12 @@
         <section class="view-likes">
             {{numberOfLikes}} Likes
         </section>
+        {% if post.post_author == request.user.username %}
+            <ul id="editordelete">
+                <li><a href="/{{post.id}}/edit">Edit</a></li>
+                <li><a href="/{{post.id}}/delete">Delete</a></li>
+            </ul>
+        {% endif %}
         {% if post.post_image.url is not None %}
             <div class="img-container">
                 <img src="{{post.post_image.url}}" alt="post image">

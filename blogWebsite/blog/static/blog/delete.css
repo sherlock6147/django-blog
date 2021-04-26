@@ -1,0 +1,34 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+main{
+    padding: 15px 20vw;
+}
+form{
+    /* background-color: rgb(231, 242, 248); */
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* align-items: center; */
+}
+form input{
+    max-width: 250px;
+    border: none;
+    background-color: rgb(39, 218, 134);
+    border-radius: 5px;
+    color: rgb(251, 251, 251);
+    margin: 10px;
+    font-weight: 600;
+    height: fit-content;
+    font-size: 1rem;
+    padding: 10px 15px;
+}
+#confirm{
+    color: azure;
+    background-color: red;
+}

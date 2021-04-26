@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/edit.css' %}">
+</head>
+{% include 'blog/snippets/header.html'%}
+<body>
+    <main>
+        <!-- <small>{{request.user.username}}</small> -->
+        {% if request.user.is_authenticated != False%}
+            <!-- <h2>{{request.user.username}} | {{post.post_author}}</h2> -->
+            {% if request.user.username == post.post_author %}
+                <form action=""  enctype=“multipart/from-data” method="post">
+                    {% csrf_token %}
+                    <label for="title">Title for your post: </label>
+                    <input type="text" value={{post.post_title}} name="post_title" id="title">
+                    <br>
+                    <label for="title">Publishing date for your post: </label>
+                    {% if post.pub_date.date.month < 10 %}
+                        <input type="date" name="pub_date"  value="{{post.pub_date.date.year}}-0{{post.pub_date.date.month}}-{{post.pub_date.date.day}}"" id="publishing_date">
+                    {% else %}
+                        <input type="date" name="pub_date"  value="{{post.pub_date.date.year}}-{{post.pub_date.date.month}}-{{post.pub_date.date.day}}"" id="publishing_date">
+                    {% endif %}
+                    <br>
+                    <label for="id_post_image">Image for your post (optional):</label>
+                    {% if post.post_image.url != None %}
+                        <input type="file" name="post_image"  accept="image/*" id="id_post_image">
+                        <label for="">Last uploaded file <a href="{{post.post_image.url}}">{{post.post_image.name}}</a></label>
+                    {% else %}
+                        <input type="file" name="post_image"  accept="image/*" id="id_post_image">
+                    {% endif %}
+                    <br>
+                    <label for="content" id="content-label">Write your post :</label><br>
+                    <textarea name="post_text" id="content" cols="40" rows="10">{{post.post_text}}</textarea>
+                    <br>
+                    <div id="btn-holder">
+                        <input type="submit" value="Post" id="submit-btn">
+                    </div>
+                </form>
+            {% else %}
+                <h2>You aren't the author for this post hence you cant edit it</h2>
+            {% endif %}
+        {% else %}
+            <h2>Please Login or Signup for Adding Blog</h2>
+        {% endif %}
+    </main>
+</body>
+{% include 'blog/snippets/footer.html' %}
+</html>
