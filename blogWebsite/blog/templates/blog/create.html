@@ -14,7 +14,7 @@
     <main>
         <!-- <small>{{request.user.username}}</small> -->
         {% if request.user.is_authenticated != False%}
-            <form action=""  enctype=“multipart/from-data” method="post">
+            <form action=""  enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <label for="title">Title for your post: </label>
                 <input type="text" name="post_title" id="title">
