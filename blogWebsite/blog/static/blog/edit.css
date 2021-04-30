@@ -57,3 +57,12 @@ label{
         width: 95%;
     }
 }
+#remove-image{
+    max-width: 200px;
+    background-color: rgb(250, 75, 75);
+    color: rgb(231, 242, 248);
+    margin: 0 auto;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 20px;
+}

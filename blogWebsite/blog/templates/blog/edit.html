@@ -16,7 +16,7 @@
         {% if request.user.is_authenticated != False%}
             <!-- <h2>{{request.user.username}} | {{post.post_author}}</h2> -->
             {% if request.user.username == post.post_author %}
-                <form action=""  enctype=“multipart/from-data” method="post">
+                <form action=""  enctype=“multipart/formdata” method="post">
                     {% csrf_token %}
                     <label for="title">Title for your post: </label>
                     <input type="text" value={{post.post_title}} name="post_title" id="title">
@@ -32,6 +32,8 @@
                     {% if post.post_image.url != None %}
                         <input type="file" name="post_image"  accept="image/*" id="id_post_image">
                         <label for="">Last uploaded file <a href="{{post.post_image.url}}">{{post.post_image.name}}</a></label>
+                        <br>
+                        <input type="submit" value="Remove image" name="remove_img" id="remove-image">
                     {% else %}
                         <input type="file" name="post_image"  accept="image/*" id="id_post_image">
                     {% endif %}
@@ -40,7 +42,7 @@
                     <textarea name="post_text" id="content" cols="40" rows="10">{{post.post_text}}</textarea>
                     <br>
                     <div id="btn-holder">
-                        <input type="submit" value="Post" id="submit-btn">
+                        <input type="submit" value="Post" id="submit-btn" name='update'>
                     </div>
                 </form>
             {% else %}
