@@ -24,7 +24,7 @@
                     <div class="post-author">
                         <h3 style="font-weight: 400;">{{post.pub_date}}</h3>
                         <h3>~By {{post.post_author}} </h3>
-                        <h3>{{post.likes}} Likes</h3>
+                        <h3>{{post.likes}} Likes {{post.dislikes}} Dislikes</h3>
                     </div>
                     <a href="{% url 'blog:detail' post.id %}">Read More</a>
                 </div>

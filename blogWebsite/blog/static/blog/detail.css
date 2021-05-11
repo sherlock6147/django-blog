@@ -146,3 +146,7 @@ form .holder{
     padding: 10px 15px;
     border-radius: 10px;
 }
+
+.active{
+    background-color: rgb(195, 203, 207);
+}

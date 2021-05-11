@@ -10,6 +10,7 @@ class Post(models.Model):
     pub_date = models.DateTimeField('date published')
     post_image = models.ImageField('image',upload_to='images/',null=True,blank=True)
     likes = models.PositiveIntegerField("Number Of Likes",default=0)
+    dislikes = models.PositiveIntegerField("Number Of Dislikes",default=0)
     def __str__(self):
         return self.post_title
 
@@ -24,7 +25,13 @@ class Like(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
     liked_by_user = models.CharField(max_length=150)
     def __str__(self):
-        return 'By '+ self.liked_by_user
+        return 'By '+ self.liked_by_user +' On Post '+self.post.post_title
+
+class Dislike(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE)
+    disliked_by_user = models.CharField(max_length=150)
+    def __str__(self):
+        return 'By '+ self.disliked_by_user+' On Post '+self.post.post_title
 
 class ProfilePhoto(models.Model):
     username = models.CharField("username",max_length=150,default="AnonymousUser")

@@ -7,7 +7,7 @@ import math
 # Create your views here.
 from .forms import UserSignupForm,UserLoginForm,AddComment,AddProfilePhotoForm
 from django.forms import ImageField
-from .models import Post,Comment,Like,ProfilePhoto
+from .models import Post,Comment,Like,ProfilePhoto,Dislike
 from django.utils import timezone
 import datetime
 from django.core.paginator import Paginator
@@ -37,6 +37,9 @@ def detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     all_comments = Comment.objects.filter(post=post)
     all_likes = Like.objects.filter(post=post)
+    all_dislikes = Dislike.objects.filter(post=post)
+    has_user_liked = Like.objects.filter(liked_by_user=request.user.username,post=post).count()==1
+    has_user_disliked = Dislike.objects.filter(disliked_by_user=request.user.username,post=post).count()==1
     if (request.method == 'POST'):
         if 'comment' in request.POST:
             form = AddComment(request.POST)
@@ -58,37 +61,93 @@ def detail(request, post_id):
                 return render(request,'blog/detail.html',context)
         elif 'like' in request.POST:
             form = AddComment()
-            like = Like.objects.filter(post=post,liked_by_user=request.user.username)
-            # print(like.count())
-            if(like.count()==0):
-                newLike = Like()
-                newLike.post = post
-                newLike.liked_by_user = request.user.username
-                print('liked')
-                newLike.save()
-                post.likes = post.likes + 1
-                post.save()
-            else:
-                print('already liked')
-        elif 'dislike' in request.POST:
-            form = AddComment()
-            try:
+            if has_user_disliked:
+                try:
+                    dislike = Dislike.objects.filter(post=post,disliked_by_user=request.user.username)
+                    dislike.delete()
+                    post.dislikes = post.dislikes - 1
+                    post.save()
+                except:
+                    print("dislike not found for deleteion")
+                like = Like.objects.filter(post=post,liked_by_user=request.user.username)
+                # print(like.count())
+                if(like.count()==0):
+                    newLike = Like()
+                    newLike.post = post
+                    newLike.liked_by_user = request.user.username
+                    print('liked')
+                    newLike.save()
+                    post.likes = post.likes + 1
+                    post.save()
+            elif has_user_liked:
                 like = Like.objects.filter(post=post,liked_by_user=request.user.username)
                 print('disliked')
                 like.delete()
                 post.likes = post.likes - 1
                 post.save()
-            except:
-                print("like not found for deleteion")
+            else :
+                like = Like.objects.filter(post=post,liked_by_user=request.user.username)
+                # print(like.count())
+                if(like.count()==0):
+                    newLike = Like()
+                    newLike.post = post
+                    newLike.liked_by_user = request.user.username
+                    print('liked')
+                    newLike.save()
+                    post.likes = post.likes + 1
+                    post.save()
+        elif 'dislike' in request.POST:
+            form = AddComment()
+            if has_user_liked:
+                try:
+                    like = Like.objects.filter(post=post,liked_by_user=request.user.username)
+                    like.delete()
+                    post.likes = post.likes - 1
+                    post.save()
+                except:
+                    print("like not found for deleteion")
+                dislike = Dislike.objects.filter(post=post,disliked_by_user=request.user.username)
+                # print(like.count())
+                if(dislike.count()==0):
+                    newDislike = Dislike()
+                    newDislike.post = post
+                    newDislike.disliked_by_user = request.user.username
+                    print('disliked')
+                    newDislike.save()
+                    post.dislikes = post.dislikes + 1
+                    post.save()
+            elif has_user_disliked:
+                dislike = Dislike.objects.filter(post=post,disliked_by_user=request.user.username)
+                print('liked')
+                dislike.delete()
+                post.dislikes = post.dislikes - 1
+                post.save()
+            else :
+                dislike = Dislike.objects.filter(post=post,disliked_by_user=request.user.username)
+                # print(like.count())
+                if(dislike.count()==0):
+                    newDislike = Dislike()
+                    newDislike.post = post
+                    newDislike.disliked_by_user = request.user.username
+                    print('disliked')
+                    newDislike.save()
+                    post.dislikes = post.dislikes + 1
+                    post.save()
         else:
             form = AddComment()
     else:
         form = AddComment()
+    has_user_liked = Like.objects.filter(liked_by_user=request.user.username,post=post).count()==1
+    has_user_disliked = Dislike.objects.filter(disliked_by_user=request.user.username,post=post).count()==1
+    print("has_liked : "+str(has_user_liked)+"\nhas_disliked : "+str(has_user_disliked))
     context = {
         'post': post,
         'form': form,
         'all_comments' : all_comments,
         'numberOfLikes' : all_likes.count(),
+        'numberOfDislikes' : all_dislikes.count(),
+        'has_user_liked' : has_user_liked,
+        'has_user_disliked' : has_user_disliked,
     }
     return render(request,'blog/detail.html',context)
 

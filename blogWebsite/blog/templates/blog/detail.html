@@ -16,8 +16,26 @@
         <div class="date-published">{{post.pub_date}}</div>
         <!-- Likes Section -->
         <section class="view-likes">
-            {{numberOfLikes}} Likes
+            {{numberOfLikes}} Likes <br>
+            {{numberOfDislikes}} Dislikes
         </section>
+        {% if post.post_author != request.user.username %}
+            {% if request.user.is_authenticated %}
+                <form action="" method="post" id="liking-form">
+                    {% csrf_token %}
+                    {% if has_user_liked %}
+                        <input type="submit" value="👍" name="like" class="active">
+                    {% else %}
+                        <input type="submit" value="👍" name="like">
+                    {% endif %}
+                    {% if has_user_disliked %}
+                        <input type="submit" value="👎" name="dislike" class="active">
+                    {% else %}
+                        <input type="submit" value="👎" name="dislike">
+                    {% endif %}
+                </form>
+            {% endif %}
+        {% endif %}
         {% if post.post_author == request.user.username %}
             <ul id="editordelete">
                 <li><a href="/{{post.id}}/edit">Edit</a></li>
@@ -28,15 +46,6 @@
             <div class="img-container">
                 <img src="{{post.post_image.url}}" alt="post image">
             </div>
-        {% endif %}
-        {% if post.post_author != request.user.username %}
-            {% if request.user.is_authenticated %}
-                <form action="" method="post" id="liking-form">
-                    {% csrf_token %}
-                    <input type="submit" value="👍" name="like">
-                    <input type="submit" value="👎" name="dislike">
-                </form>
-            {% endif %}
         {% endif %}
         <div class="post_text">{{post.post_text}}</div>
         <section class="comments">
